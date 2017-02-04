@@ -1,44 +1,31 @@
-var path = require('path'),
-    _ = require('lodash'),
-    Promise = require('bluebird'),
-    chalk = require('chalk'),
-    Server = require('./server'),
+var path          = require('path'),
+    _             = require('lodash'),
+    Promise       = require('bluebird'),
+    chalk         = require('chalk'),
+    Server        = require('./server'),
+    apps          = require('./apps'),
     KatherynCore
 ;
 
-
 var KatherynApp = function (settings){
   console.log(chalk.green('Starting katheryn:core...'));
+
   this._settings  = settings;
   this._server    = new Server();
-  return Promise.resolve(this._server);
+  this.init();
+  this.testing();
+  return Promise.resolve();
 }
 
-KatherynApp.prototype.startServer = function (){
+KatherynApp.prototype.init = function (){
     var settings = this._settings;
-    console.log('settings.BASE_DIR', settings.BASE_DIR);
-    // var modelFolder = fs.readdirSync(settings.modelPath);
-    //
-    // _.each(settings.INSTALLED_APPS, function(c){
-    //   var Model = require(path.join(settings.BASE_DIR, 'models.js'));
-    //
-    //   _.each(Model.Models, function (model, name){
-    //     var modelSchema = mongoose.Schema(model.attributes, {collection: name});
-    //     global[m] = mongoose.model(m, modelSchema);
-    //   });
 
-    // });
+    this._apps = apps(settings).readApps();
 }
 
-KatherynApp.prototype.startServer = function (){
-
+KatherynApp.prototype.testing = function (){
+  console.log(this._apps.main.User);
+  console.log(User);
 }
 
-// module.exports = function (settings){
-//   return KatherynApp(settings).then(function (server){
-//     return Promise.resolve(server);
-//   }).catch(function (e){
-//     console.log(chalk.red('error'));
-//   });
-// };
 module.exports = KatherynApp;

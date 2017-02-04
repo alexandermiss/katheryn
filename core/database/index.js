@@ -1,6 +1,5 @@
-var mongoose  = require('mongoose'),
-    config    = require('../../config');
+var mongoose  = require('mongoose');
 
-mongoose.connect(config.database.url);
-
-module.exports = mongoose;
+module.exports = function (settings){
+  return mongoose.connect(settings.DATABASE.URL);
+}

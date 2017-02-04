@@ -1,0 +1,5 @@
+// Opciones predeterminada
+
+module.exports = {
+
+};
